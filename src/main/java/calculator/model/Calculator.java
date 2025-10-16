@@ -2,15 +2,16 @@ package calculator.model;
 
 public class Calculator {
     private int sum;
-    String inputSting;
+    String inputString;
 
     public Calculator(String value){
         sum = 0;
-        inputSting = value;
+        inputString = value;
     }
 
     public void calculate(){
-
+        Separator separator = new Separator();
+        inputString = separator.separate(inputString);
     }
 
     public int getSum(){
