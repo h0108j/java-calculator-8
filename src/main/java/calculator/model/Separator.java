@@ -9,30 +9,30 @@ public class Separator {
 
     private String delimiter;
     private String customDelimiter;
-    private String stringToCalculate;
+    private String expression;
 
     public Separator() {
         this.delimiter = DEFAULT_DELIMITER;
         this.customDelimiter = "";
-        this.stringToCalculate = "";
+        this.expression = "";
     }
 
     public String separate(String inputString) {
         parseCustomDelimiter(inputString);
         buildCustomDelimiter();
-        return stringToCalculate;
+        return expression;
     }
 
     private void parseCustomDelimiter(String inputString) {
         if (!inputString.startsWith(CUSTOM_START_MARK)) {
-            stringToCalculate = inputString;
+            expression = inputString;
             return;
         }
         int endIndex = inputString.lastIndexOf(CUSTOM_END_MARK);
         if (endIndex == CUSTOM_START_MARK.length()) {throw new IllegalArgumentException("빈 문자는 커스텀 구분자로 사용할 수 없습니다.");}
         if (endIndex == -1) {throw new IllegalArgumentException("\\n를 찾을 수 없습니다.");};
         customDelimiter = inputString.substring(CUSTOM_START_MARK.length(), endIndex);
-        stringToCalculate = inputString.substring(endIndex + CUSTOM_END_MARK.length() - 1);
+        expression = inputString.substring(endIndex + CUSTOM_END_MARK.length());
     }
 
     private void buildCustomDelimiter() {

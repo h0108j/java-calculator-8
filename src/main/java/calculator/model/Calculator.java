@@ -12,6 +12,8 @@ public class Calculator {
     public void calculate(){
         Separator separator = new Separator();
         inputString = separator.separate(inputString);
+        Accumulator accumulator = new Accumulator(separator.getDelimiter(), inputString);
+        sum = accumulator.accumulate();
     }
 
     public int getSum(){
