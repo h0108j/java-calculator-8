@@ -82,6 +82,14 @@ class RunTest extends NsTest {
     }
 
     @Test
+    void 구분자_테스트_6() {
+        assertSimpleTest(() -> {
+            run("//!\\n12!!!12");
+            assertThat(output()).contains("결과 : 24");
+        });
+    }
+
+    @Test
     void 예외_테스트_1() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("-1,2,3"))
@@ -116,7 +124,7 @@ class RunTest extends NsTest {
     @Test
     void 예외_테스트_5() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("//!\n1!0"))
+                assertThatThrownBy(() -> runException("//!\\n1!0"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
@@ -124,7 +132,7 @@ class RunTest extends NsTest {
     @Test
     void 예외_테스트_6() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("//!\n71!!25"))
+                assertThatThrownBy(() -> runException("//1\\n213"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
@@ -132,7 +140,7 @@ class RunTest extends NsTest {
     @Test
     void 예외_테스트_7() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("//:\n114:12"))
+                assertThatThrownBy(() -> runException("//:\\n114:12"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
@@ -140,7 +148,15 @@ class RunTest extends NsTest {
     @Test
     void 예외_테스트_8() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException("//&\n10101#1010"))
+                assertThatThrownBy(() -> runException("//&\\n10101#1010"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_9() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//\\n1"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
