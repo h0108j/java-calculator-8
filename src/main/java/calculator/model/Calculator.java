@@ -10,9 +10,10 @@ public class Calculator {
     }
 
     public void calculate(){
-        Separator separator = new Separator();
-        inputString = separator.separate(inputString);
-        Accumulator accumulator = new Accumulator(separator.getDelimiter(), inputString);
+        Delimiter delimiter = new Delimiter();
+        Separator separator = new Separator(delimiter);
+        separator.separate(inputString);
+        Accumulator accumulator = new Accumulator(delimiter, separator.getExpression());
         sum = accumulator.accumulate();
     }
 

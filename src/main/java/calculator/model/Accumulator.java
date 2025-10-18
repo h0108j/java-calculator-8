@@ -4,11 +4,11 @@ import java.util.LinkedList;
 
 public class Accumulator {
     private int sum;
-    private String delimiter;
+    private Delimiter delimiter;
     private String expression;
     private LinkedList<Integer> numberList;
 
-    public Accumulator(String delimiter, String expression) {
+    public Accumulator(Delimiter delimiter, String expression) {
         this.sum = 0;
         this.delimiter = delimiter;
         this.expression = expression;
@@ -22,7 +22,8 @@ public class Accumulator {
     }
 
     private void extractNumbers() {
-        String[] arrayOfNumbers = expression.split(delimiter);
+        delimiter.buildRegex();
+        String[] arrayOfNumbers = expression.split(delimiter.getDelimiterRegex());
         String number;
         for (int i = 0; i < arrayOfNumbers.length; i++) {
             number = arrayOfNumbers[i];
@@ -37,5 +38,9 @@ public class Accumulator {
         for (int i = 0; i < numberList.size(); i++) {
             sum += numberList.get(i);
         }
+    }
+
+    private LinkedList<Integer> getNumberList() {
+        return numberList;
     }
 }
