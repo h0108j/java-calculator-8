@@ -2,6 +2,9 @@ package calculator.model;
 
 import java.util.LinkedList;
 
+import static calculator.common.Exception.NOT_ALLOWED_ZERO_EXCEPTION;
+import static calculator.common.Exception.UNREGISTERED_CUSTOM_DELIMITER_EXCEPTION;
+
 public class NumberExtractor {
     private LinkedList<Integer> numberList;
 
@@ -12,12 +15,10 @@ public class NumberExtractor {
     public void extractNumbers(Delimiter delimiter, String expression) {
         delimiter.buildRegex();
         String[] arrayOfNumbers = expression.split(delimiter.getDelimiterRegex());
-        String number;
-        for (int i = 0; i < arrayOfNumbers.length; i++) {
-            number = arrayOfNumbers[i];
-            if (number.equals("0")) {throw new IllegalArgumentException("0은 양수가 아닙니다.");}
+        for (String number : arrayOfNumbers) {
+            if (number.equals("0")) {throw new IllegalArgumentException(NOT_ALLOWED_ZERO_EXCEPTION);}
             if (number.equals("")) {number = "0";}
-            if (!number.matches("[0-9]+")) {throw new IllegalArgumentException("커스텀 구분자로 등록되지 않은 문자는 사용할 수 없습니다.");}
+            if (!number.matches("[0-9]+")) {throw new IllegalArgumentException(UNREGISTERED_CUSTOM_DELIMITER_EXCEPTION);}
             numberList.add(Integer.parseInt(number));
         }
     }

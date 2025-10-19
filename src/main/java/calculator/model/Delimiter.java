@@ -2,9 +2,10 @@ package calculator.model;
 
 import java.util.regex.Pattern;
 
-public class Delimiter {
-    public static final String DEFAULT_DELIMITER = ",:";
+import static calculator.common.Constants.DEFAULT_DELIMITER;
+import static calculator.common.Exception.RESERVED_WORD_DELIMITER_EXCEPTION;
 
+public class Delimiter {
     private String customDelimiter;
     private String delimiterRegex;
 
@@ -27,7 +28,7 @@ public class Delimiter {
 
         for (int i = 0; i < customDelimiter.length(); i++) {
             char ch = customDelimiter.charAt(i);
-            if (String.valueOf(ch).matches("[0-9]|,|:")) {throw new IllegalArgumentException("예약어는 커스텀 구분자로 사용할 수 없습니다.");}
+            if (Character.isDigit(ch) || DEFAULT_DELIMITER.contains(String.valueOf(ch))) { throw new IllegalArgumentException(RESERVED_WORD_DELIMITER_EXCEPTION); }
             stringbuilder.append("|").append(Pattern.quote(String.valueOf(ch)));
         }
         delimiterRegex = stringbuilder.toString();

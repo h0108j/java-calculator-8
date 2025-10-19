@@ -21,8 +21,8 @@ public class Accumulator {
     }
 
     private void addNumbers(LinkedList<Integer> numberList) {
-        for (int i = 0; i < numberList.size(); i++) {
-            sum += numberList.get(i);
+        for (int number : numberList) {
+            sum += number;
         }
     }
 }

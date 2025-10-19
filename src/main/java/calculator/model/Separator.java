@@ -1,9 +1,11 @@
 package calculator.model;
 
-public class Separator {
-    public static final String CUSTOM_START_MARK = "//";
-    public static final String CUSTOM_END_MARK = "\\n";
+import static calculator.common.Constants.CUSTOM_END_MARK;
+import static calculator.common.Constants.CUSTOM_START_MARK;
+import static calculator.common.Exception.EMPTY_CUSTOM_DELIMITER_EXCEPTION;
+import static calculator.common.Exception.MISSING_END_MARK_EXCEPTION;
 
+public class Separator {
     private Delimiter delimiter;
     private String customDelimiter;
     private String expression;
@@ -24,8 +26,8 @@ public class Separator {
             return;
         }
         int endIndex = inputString.lastIndexOf(CUSTOM_END_MARK);
-        if (endIndex == CUSTOM_START_MARK.length()) {throw new IllegalArgumentException("빈 문자는 커스텀 구분자로 사용할 수 없습니다.");}
-        if (endIndex == -1) {throw new IllegalArgumentException("\\n를 찾을 수 없습니다.");};
+        if (endIndex == CUSTOM_START_MARK.length()) {throw new IllegalArgumentException(EMPTY_CUSTOM_DELIMITER_EXCEPTION);}
+        if (endIndex == -1) {throw new IllegalArgumentException(MISSING_END_MARK_EXCEPTION);};
         customDelimiter = inputString.substring(CUSTOM_START_MARK.length(), endIndex);
         delimiter.addCustomDelimiter(customDelimiter);
         expression = inputString.substring(endIndex + CUSTOM_END_MARK.length());
